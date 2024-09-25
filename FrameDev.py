@@ -32,43 +32,43 @@ def addItem(type,textinside,bg,relief,color,width,height,size,place):
     what_is.pack(side=TOP)
 
     match type:
-        case "label"|"button"|"entry":
+        case "label"|"button"|"entry"|"checkbox":
             label1 = Label(frame,text="Text:",bg="gray")
             textEntry = Entry(frame,textvariable=textInput,width=10)
             label1.pack(side=LEFT)
             textEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"entry"|"space":
+        case "label"|"button"|"entry"|"space"|"checkbox":
             label2 = Label(frame,text="Background:",bg="gray")
             bgEntry = Entry(frame,textvariable=bgInput,width=10)
             label2.pack(side=LEFT)
             bgEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"entry":
+        case "label"|"button"|"entry"|"checkbox":
             label3 = Label(frame,text="Border:",bg="gray")
             reliefEntry = Entry(frame,textvariable=reliefInput,width=10)
             label3.pack(side=LEFT)
             reliefEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"entry":
+        case "label"|"button"|"entry"|"checkbox":
             label4 = Label(frame,text="Color:",bg="gray")
             colorEntry = Entry(frame,textvariable=colorInput,width=10)
             label4.pack(side=LEFT)
             colorEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"entry"|"space":
+        case "label"|"button"|"entry"|"space"|"checkbox":
             label5 = Label(frame,text="Width:",bg="gray")
             widthEntry = Entry(frame,textvariable=widthInput,width=10)
             label5.pack(side=LEFT)
             widthEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"space":
+        case "label"|"button"|"space"|"checkbox":
             label6 = Label(frame,text="Height:",bg="gray")
             heightEntry = Entry(frame,textvariable=heightInput,width=10)
             label6.pack(side=LEFT)
             heightEntry.pack(side=LEFT)
     match type:
-        case "label"|"button"|"entry":
+        case "label"|"button"|"entry"|"checkbox":
             label7 = Label(frame,text="Font Size:",bg="gray")
             sizeEntry = Entry(frame,textvariable=sizeInput,width=10)
             label7.pack(side=LEFT)
@@ -168,6 +168,8 @@ def runWindow():
                     mainItem.pack(side=TOP)
                 case "space":
                     testingItens.append(Label(testWindowFrame,text="",bg=thing[2].get(),width=int(thing[5].get()),height=int(thing[6].get())))
+                case "checkbox":
+                    testingItens.append(Checkbutton(testWindowFrame,text=thing[1].get(),bg=thing[2].get(),relief=thing[3].get(),fg=thing[4].get(),width=int(thing[5].get()),height=int(thing[6].get()),font=("Arial",int(thing[7].get())),borderwidth=borderSize))
 
             match thing[8].get():
                 case "left":
@@ -242,6 +244,8 @@ mainFrame.pack(fill=BOTH)
                     createCode += f"mainItem{loop}.pack(side=TOP)\n"
                 case "space":
                     createCode += f"item{loop} = Label(mainFrame,text='',bg='{thing[2].get()}',width={thing[5].get()},height={thing[6].get()})\n"
+                case "checkbox":
+                    createCode += f"item{loop} = Checkbutton(mainFrame,text='{thing[1].get()}',bg='{thing[2].get()}',relief='{thing[3].get()}',fg='{thing[4].get()}',width={thing[5].get()},height={thing[6].get()},font=('Arial',{thing[7].get()}),borderwidth={borderSize})\n"
 
             match thing[8].get():
                 case "left":
@@ -271,6 +275,8 @@ def addingEntry():
     addItem("entry","input:","white","solid","black","30"," ","10","top")
 def addingSpace():
     addItem("space","","white","","","30","10","","top")
+def addingCheckbox():
+    addItem("checkbox","is true?","white","flat","black","30","2","10","top")
 
 creator = Tk()
 creator.title("Frame Dev")
@@ -343,9 +349,11 @@ addLabel = Button(addThings,text="Label",width=20,command=addingLabel)
 addButton = Button(addThings,text="Button",width=20,command=addingButton)
 addEntry = Button(addThings,text="Input",width=20,command=addingEntry)
 addSpace = Button(addThings,text="Space",width=20,command=addingSpace)
+addCheckbox = Button(addThings,text="Checkbox",width=20,command=addingCheckbox)
 addLabel.pack(side=TOP)
 addButton.pack(side=TOP)
 addEntry.pack(side=TOP)
 addSpace.pack(side=TOP)
+addCheckbox.pack(side=TOP)
 
 creator.mainloop()
